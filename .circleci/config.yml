@@ -50,12 +50,27 @@
               name: Test job
               # Fail the job intentionally to simulate an error.
               command:  return 1
-          - destroy_environment 
+          - destroy_environment
+
+      create_and_deploy_front_end:
+        docker:
+          - image: amazon/aws-cli
+        steps:
+          - checkout
+          - run:
+            name: Execute bucket.yml - Create Cloudformation Stack
+              command: |
+                aws cloudformation deploy \
+                --template-file bucket.yml \
+                --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
+                --parameter-overrides MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:7}"     
 
   workflows:
     myWorkflow:
       jobs:
-        - create_infrastructure
+        #- create_infrastructure
         #- configure_infrastructure
-        - smoke_test
+        #- smoke_test
+        - create_and_deploy_front_end
+        
       
