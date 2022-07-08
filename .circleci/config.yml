@@ -27,7 +27,7 @@
               # Install Ansible
           - run:
               name: Run Playbook and Configure server
-              command: ansible-playbook -i inventory.txt main_remote.yml
+              command: ansible-playbook -i inventory.txt main-remote.yml
               # Your command              
   workflows:
     myWorkflow:
