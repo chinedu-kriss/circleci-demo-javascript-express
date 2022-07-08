@@ -59,7 +59,7 @@
           - checkout
           - run:
             name: Execute bucket.yml - Create Cloudformation Stack
-              command: |
+              command:
                 aws cloudformation deploy \
                 --template-file bucket.yml \
                 --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
@@ -72,5 +72,4 @@
         #- configure_infrastructure
         #- smoke_test
         - create_and_deploy_front_end
-        
       
